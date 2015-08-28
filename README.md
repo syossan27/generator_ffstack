@@ -1,4 +1,4 @@
-# GeneratorFfstack
+# GeneratorFFstack
 
 To start your Phoenix app:
 
