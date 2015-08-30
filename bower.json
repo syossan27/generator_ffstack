@@ -1,0 +1,19 @@
+{
+  "name": "generator_ffstack",
+  "version": "0.0.0",
+  "homepage": "https://github.com/syossan27/generator_ffstack",
+  "authors": [
+    "syossan27 <wisdom1027@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mithril": "~0.2.0"
+  }
+}
