@@ -54,6 +54,14 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+
+    // brunch-sass
+    // https://github.com/brunch/sass-brunch
+    sass: {
+      options: {
+        includePaths: [/web\/static\/sass/]
+      }
     }
   },
 
