@@ -2,29 +2,32 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: 'js/app.js'
+//      joinTo: 'js/app.js'
 
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
-      // joinTo: {
-      //  'js/app.js': /^(web\/static\/js)/,
-      //  'js/vendor.js': /^(web\/static\/vendor)|(deps)/
-      // }
+      joinTo: {
+          'js/app.js': /^(web\/static\/js|deps)/,
+          'js/vendor.js':  /^bower_components/
+      },
       //
-      // To change the order of concatenation of files, explicitly mention here
+      // To change the order of concatenation of files, explictly mention here
       // https://github.com/brunch/brunch/tree/master/docs#concatenation
-      // order: {
-      //   before: [
-      //     'web/static/vendor/js/jquery-2.1.1.js',
-      //     'web/static/vendor/js/bootstrap.min.js'
-      //   ]
-      // }
+       order: {
+         before: [
+//           'web/static/vendor/js/jquery-2.1.1.js',
+//           'web/static/vendor/js/bootstrap.min.js'
+         ],
+         after: [
+          '/bowercomponents/mithril/mithril.min.js'
+         ]
+       },
     },
     stylesheets: {
-      joinTo: 'css/app.css'
+        joinTo: 'css/app.css'
     },
     templates: {
-      joinTo: 'js/app.js'
+        joinTo: 'js/app.js'
     }
   },
 
@@ -56,7 +59,8 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      'js/app.js': ['web/static/js/app']
+      // app.jsに直接スクリプトを書かない場合は、ここでrequireされるように指定するか、処理を実施する箇所でrequireする必要がある
+      'js/app.js': ['web/static/js/app', 'web/static/js/sample']
     }
   },
 
