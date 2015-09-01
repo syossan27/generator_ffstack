@@ -60,9 +60,15 @@ exports.config = {
     // https://github.com/brunch/sass-brunch
     sass: {
       options: {
-        includePaths: [/web\/static\/sass/]
+        includePaths: [/web\/static\/css/]
       }
-    }
+    },
+
+    // brunch-sass
+    // https://github.com/brunch/sass-brunch
+    less: {
+      dumpLineNumbers: 'comments'
+    },
   },
 
   modules: {

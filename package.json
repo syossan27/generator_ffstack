@@ -6,6 +6,7 @@
     "clean-css-brunch": ">= 1.0 < 1.8",
     "css-brunch": ">= 1.0 < 1.8",
     "javascript-brunch": ">= 1.0 < 1.8",
+    "less-brunch": "^1.8.1",
     "sass-brunch": "^1.8.11",
     "uglify-js-brunch": ">= 1.0 < 1.8"
   },
