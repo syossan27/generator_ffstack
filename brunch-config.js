@@ -69,12 +69,17 @@ exports.config = {
     less: {
       dumpLineNumbers: 'comments'
     },
+
+    afterBrunch: [
+        'mkdir -p priv/static/fonts',
+        'cp -f bower_components/bootstrap/dist/fonts/* priv/static/fonts',
+    ]
   },
 
   modules: {
     autoRequire: {
       // app.jsに直接スクリプトを書かない場合は、ここでrequireされるように指定するか、処理を実施する箇所でrequireする必要がある
-      'js/app.js': ['web/static/js/app', 'web/static/js/sample']
+      'js/app.js': ['web/static/js/app', 'web/static/js/sample', 'web/static/js/header', 'web/static/js/route']
     }
   },
 

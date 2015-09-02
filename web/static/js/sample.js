@@ -1,3 +1,8 @@
+
+
+
+
+
 //this application only has one module: todo
 var todo = {};
 
@@ -44,19 +49,24 @@ todo.controller = function() {
 
 //here's the view
 todo.view = function() {
-    return m("div", [
-            m("input", {onchange: m.withAttr("value", todo.vm.description), value: todo.vm.description()}),
-            m("button", {onclick: todo.vm.add}, "Add"),
-            m("table", [
-                todo.vm.list.map(function(task, index) {
-                    return m("tr", [
-                        m("td", [
-                            m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()})
-                        ]),
-                        m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description()),
-                    ])
-                })
+  return m("div", [
+    m("h2", 'TODO登録'),
+    m("input", {onchange: m.withAttr("value", todo.vm.description), value: todo.vm.description()}),
+    m("button", {onclick: todo.vm.add}, "Add"),
+    m("table", [
+      todo.vm.list.map(function(task, index) {
+        return m("tr", [
+          m("td", [
+            m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()})
+          ]),
+          m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description()),
         ])
-    ]);
+      })
+    ])
+  ]);
 };
-m.module(document.getElementById("input"), {controller: todo.controller, view: todo.view});
+
+m.route(document.getElementById("root"), "/", {
+    "/": todo,
+    "/hoge": todo,
+});
