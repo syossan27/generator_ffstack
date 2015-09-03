@@ -47,24 +47,42 @@ todo.controller = function() {
     todo.vm.init()
 }
 
+
 //here's the view
 todo.view = function() {
-  return m("div", [
-    m("h2", 'TODO登録'),
-    m("input", {onchange: m.withAttr("value", todo.vm.description), value: todo.vm.description()}),
-    m("button", {onclick: todo.vm.add}, "Add"),
-    m("table", [
-      todo.vm.list.map(function(task, index) {
-        return m("tr", [
-          m("td", [
-            m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()})
-          ]),
-          m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description()),
-        ])
-      })
+  return m("header.hero-unit[id='banner']", [
+    m(".container", [
+      m("h1", "'Allo, 'Allo!"),
+      m("p.lead", "Kick-start your next web app with Angular Fullstack"),
+      m("img[alt='I\'m Yeoman'][src='images/yeoman.png']")
     ])
   ]);
 };
+
+//here's the view
+// todo.view = function() {
+//   return m(".container[role='main']", [
+//     m("ul.nav.nav-pills.pull-right", [
+//       m("li", [m("a[href='http://www.phoenixframework.org/docs']", "Get Started")])
+//     ]),
+//     m("span.logo"),
+//     m("div", [
+//       m("h2", 'TODO登録'),
+//       m("input", {onchange: m.withAttr("value", todo.vm.description), value: todo.vm.description()}),
+//       m("button", {onclick: todo.vm.add}, "Add"),
+//       m("table", [
+//         todo.vm.list.map(function(task, index) {
+//           return m("tr", [
+//             m("td", [
+//               m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()})
+//             ]),
+//             m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description()),
+//           ])
+//         })
+//       ])
+//     ])
+//   ]);
+// };
 
 m.route(document.getElementById("root"), "/", {
     "/": todo,

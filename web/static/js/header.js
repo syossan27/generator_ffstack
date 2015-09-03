@@ -6,26 +6,27 @@ var menu = [
     'title': 'Home',
     'link': '/'
   },
-  {
-    'title': 'Hoge',
-    'link': '/hoge'
-  }
 ];
-
-// m.requestでログイン状態を取得
-// return Boolean
-var isLoggedIn = true;
 
 // View-Model
 header.vm = (function() {
     var vm = {}
     vm.init = function() {
-//      vm.isActive = function(route) {
-//        return route === 
-//      };
+      vm.signup = function() {
+        // noop
+      }
+
+      vm.login = function() {
+        // noop
+      }
+
       vm.logout = function() {
         // noop
       }
+
+      // m.requestでログイン状態を取得
+      // return Boolean
+      vm.isLoggedIn = m.prop(false);
     }
     return vm
 }())
@@ -37,6 +38,7 @@ header.controller = function() {
 
 // View
 header.view = function() {
+  console.log(header.vm.isLoggedIn() ? 'hidden' : '');
   return m(".navbar.navbar-default.navbar-static-top", [
            m(".navbar-header", [
              m("button.navbar-toggle[type='button'][data-toggle='collapse'][data-target='#demo']", [
@@ -57,17 +59,21 @@ header.view = function() {
                m("li", {class: m.route() === '/admin' ? 'active' : '', href: '/admin'})
              ]),
              m("ul.nav.navbar-nav.navbar-right", [
-               m("li", {class: m.route() === '/signup' ? 'active' : '' + isLoggedIn ? 'hidden' : '', href: '/signup'}),
-               m("li", {class: m.route() === '/login' ? 'active' : '' + isLoggedIn ? 'hidden' : '', href: '/login'}),
-               m("li", {class: isLoggedIn ? '' : 'hidden'}, [
+               m("li", {class: m.route() === '/signup' ? 'active' : '' + (header.vm.isLoggedIn() ? 'hidden' : ''), href: '/signup'}, [
+                 m("a[href='']", {onclick: header.vm.signup()}, "Sign up")
+               ]),
+               m("li", {class: m.route() === '/login' ? 'active' : '' + (header.vm.isLoggedIn() ? 'hidden' : ''), href: '/login'}, [
+                 m("a[href='']", {onclick: header.vm.login()}, "Login")
+               ]),
+               m("li", {class: header.vm.isLoggedIn() ? '' : 'hidden'}, [
                  // m("p.navbar-text", "Hello {{ getCurrentUser().name }}")," "
                ]),
-               m("li", {class: m.route() === '/settings' ? 'active' : ''}, [
+               m("li", {class: m.route() === '/settings' ? 'active' : '' + (header.vm.isLoggedIn() ? '' : 'hidden')}, [
                  m("a[href='/settings']", [
                    m("span.glyphicon.glyphicon-cog")
                  ])
                ]),
-               m("li", {class: m.route() === '/logout' ? 'active' : ''}, [
+               m("li", {class: m.route() === '/logout' ? 'active' : '' + (header.vm.isLoggedIn() ? '' : 'hidden')}, [
                  m("a[href='']", {onclick: header.vm.logout()}, "Logout")
                ])
              ])
