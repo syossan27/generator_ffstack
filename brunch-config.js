@@ -7,7 +7,7 @@ exports.config = {
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
       joinTo: {
-          'js/app.js': /^(web\/static\/js|deps)/,
+          'js/app.js': /^(web\/static\/js|deps|client\/app)/,
           'js/vendor.js':  /^bower_components/
       },
       //
@@ -46,7 +46,8 @@ exports.config = {
     // Dependencies and current project directories to watch
     watched: ["deps/phoenix/web/static",
               "deps/phoenix_html/web/static",
-              "web/static", "test/static"],
+              "web/static", "test/static",
+              "client/app/"],
 
     // Where to compile files to
     public: "priv/static"
@@ -82,7 +83,12 @@ exports.config = {
   modules: {
     autoRequire: {
       // app.jsに直接スクリプトを書かない場合は、ここでrequireされるように指定するか、処理を実施する箇所でrequireする必要がある
-      'js/app.js': ['web/static/js/app', 'web/static/js/main/main', 'web/static/js/header', 'web/static/js/footer']
+      'js/app.js': ['web/static/js/app',
+                    'client/app/main/main',
+                    'client/app/account/signup',
+                    'client/app/header',
+                    'client/app/footer',
+                    'client/app/router']
     }
   },
 

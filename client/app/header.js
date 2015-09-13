@@ -13,7 +13,7 @@ header.vm = (function() {
     var vm = {}
     vm.init = function() {
       vm.signup = function() {
-        // noop
+        m.route('/signup')
       }
 
       vm.login = function() {
@@ -53,23 +53,24 @@ header.view = function() {
                m("ul.nav.navbar-nav", [
                  menu.map(function(menu, index) {
                    return m("li", {class: m.route() === menu.link ? 'active' : ''}, [
-                            m("a", {href: menu.link}, menu.title)
+                            m("a", {href: menu.link, config: m.route}, menu.title)
                           ])
                  }),
                  m("li", {class: m.route() === '/admin' ? 'active' : '', href: '/admin'})
                ]),
                m("ul.nav.navbar-nav.navbar-right", [
-                 m("li", {class: (m.route() === '/signup' ? 'active' : '') + (header.vm.isLoggedIn() ? 'hidden' : ''), href: '/signup'}, [
-                   m("a[href='']", {onclick: header.vm.signup()}, "Sign up")
+                 m("li", {class: (m.route() === '/signup' ? 'active' : '') + (header.vm.isLoggedIn() ? 'hidden' : '')}, [
+//                   m("a[href='']", {onclick: header.vm.signup()}, "Sign up")
+                   m("a", {href: '/signup', config: m.route}, "Sign up")
                  ]),
                  m("li", {class: (m.route() === '/login' ? 'active' : '') + (header.vm.isLoggedIn() ? 'hidden' : ''), href: '/login'}, [
-                   m("a[href='']", {onclick: header.vm.login()}, "Login")
+                   m("a", {href: '/login', config: m.route}, "Login")
                  ]),
                  m("li", {class: header.vm.isLoggedIn() ? '' : 'hidden'}, [
                    // m("p.navbar-text", "Hello {{ getCurrentUser().name }}")," "
                  ]),
                  m("li", {class: (m.route() === '/settings' ? 'active' : '') + (header.vm.isLoggedIn() ? '' : 'hidden')}, [
-                   m("a[href='/settings']", [
+                   m("a", {href: '/settings', config: m.route}, [
                      m("span.glyphicon.glyphicon-cog")
                    ])
                  ]),

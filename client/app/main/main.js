@@ -11,37 +11,33 @@ main.Thing = function(thing) {
   this.info = m.prop(thing.info)
 };
 
-// m.requestで取得
-main.awesomeThings = []
-var getThings = m.prop([])
-var setThings = function() {
-  var things = getThings()['data']
-  things.map(function(thing, index){
-    var newThing = new main.Thing({id: thing.id, name: thing.name, info: thing.info})
-    main.awesomeThings.push(newThing)
-  })
-}
-m.request({method: 'GET', url: '/api/things'}).then(getThings).then(setThings)
-
 // View-Model
 main.vm = (function() {
   var vm = {}
   vm.init = function() {
 
-    // TEST
-    for (var i in main.awesomeThingsTest) {
-      var thing = main.awesomeThingsTest[i]
-      main.awesomeThings.push(new main.Thing({id: thing.id, name: thing.name, info: thing.info}))
+    vm.setThing = function() {
+      // m.requestで取得
+      main.awesomeThings = []
+      var getThings = m.prop([])
+      var setThings = function() {
+        var things = getThings()['data']
+        things.map(function(thing, index){
+          var newThing = new main.Thing({id: thing.id, name: thing.name, info: thing.info})
+          main.awesomeThings.push(newThing)
+        })
+      }
+      m.request({method: 'GET', url: '/api/things'}).then(getThings).then(setThings)
     }
 
+    vm.setThing()
     vm.id   = m.prop("")
     vm.name = m.prop("")
     vm.info = m.prop("")
 
     vm.addThing = function() {
-      // m.requestを使ってphoenixでDBに値を入れる
       var newThing = new main.Thing({name: vm.name(), info: vm.info()})
-      main.awesomeThings.push(newThing)
+      // m.requestを使ってphoenixでDBに値を入れる
       m.request({
         method: 'POST',
         url: '/api/things',
@@ -51,7 +47,8 @@ main.vm = (function() {
             info: newThing.info()
           }
         }
-      });
+      })
+      vm.setThing()
     }
 
     vm.deleteThing = function(id) {
@@ -60,10 +57,13 @@ main.vm = (function() {
         var thing = main.awesomeThings[i]
         if (thing.id() == id) {
           main.awesomeThings.splice(i, 1)
-          m.redraw()
           m.request({method: 'DELETE', url: '/api/things/'+id})
         }
       }
+    }
+
+    vm.noop = function() {
+      // noop
     }
   }
 
@@ -92,7 +92,7 @@ main.view = function() {
                  main.awesomeThings.map(function(thing, index) {
                    return m("ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6", [
                             m("li", [
-                              m("a[href='#']", {tooltip: thing.info()}, [
+                              m("a", {tooltip: thing.info(), onclick: main.vm.noop}, [
                                 thing.name(),
                                 m("button.close[type='button']", {value: thing.id(), onclick: m.withAttr("value", main.vm.deleteThing)} ,"×")
                               ])
@@ -116,6 +116,4 @@ main.view = function() {
          ];
 };
 
-m.route(document.getElementById("root"), "/", {
-    "/": main,
-});
+module.exports = main
