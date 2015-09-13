@@ -17,6 +17,18 @@ defmodule GeneratorFfstack.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    #scope "/api", Api, as: :api do
+    #  pipe_through :api
+
+    #  resources "/things", ThingController
+    #end
+  end
+
+  scope "/api", as: :api do
+    pipe_through :api
+
+    resources "/things", GeneratorFfstack.Api.ThingController
   end
 
   # Other scopes may use custom stacks.
