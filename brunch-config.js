@@ -82,7 +82,7 @@ exports.config = {
   modules: {
     autoRequire: {
       // app.jsに直接スクリプトを書かない場合は、ここでrequireされるように指定するか、処理を実施する箇所でrequireする必要がある
-      'js/app.js': ['web/static/js/app', 'web/static/js/sample', 'web/static/js/header', 'web/static/js/route']
+      'js/app.js': ['web/static/js/app', 'web/static/js/main/main', 'web/static/js/header', 'web/static/js/footer']
     }
   },
 
